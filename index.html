@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#C9C5A6" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>Резерв+</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Roboto', sans-serif;
+      background: #C9C5A6;
+      color: #000;
+      overscroll-behavior: none;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .app {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      max-width: 480px;
+      width: 100%;
+      height: 100%;
+      margin: 0 auto;
+      position: relative;
+      justify-content: space-between;
+      background: #E1DECB;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: flex-end;
+      padding: 12px 20px 8px;
+    }
+
+    .notifications-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #fff;
+      border: none;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 0;
+      letter-spacing: 0.1px;
+      color: #1c1c1e;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: all 0.2s ease;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    .notifications-btn:hover {
+      background: #f9f9f9;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+      transform: translateY(-1px);
+    }
+
+    .notifications-btn:active {
+      background: #f0f0f0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+      transform: translateY(0);
+    }
+
+    .notifications-btn svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    /* ID Card */
+    .id-card {
+      background: #D6D2B5;
+      border-radius: 6px;
+      border: 1px solid #979483;
+      margin: 8px 16px 0;
+      padding: 24px 16px 16px;
+      position: relative;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+
+    .id-card__top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 18px;
+    }
+
+    .id-card__title {
+      font-size: 21px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      line-height: 1.2;
+    }
+
+    .id-card__logo {
+      width: 26px;
+      height: 32px;
+      flex-shrink: 0;
+    }
+
+    .id-card__body {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .id-card__photo {
+      width: 130px;
+      height: 165px;
+      border-radius: 4px;
+      object-fit: cover;
+      background: #f5f5f5;
+      flex-shrink: 0;
+    }
+
+    .id-card__info {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      padding-top: 4px;
+    }
+
+    .info-block__label {
+      font-size: 14px;
+      font-weight: 400;
+      color: #3c3a2a;
+      margin-bottom: 4px;
+      line-height: 1.35;
+      letter-spacing: 0.2px;
+    }
+
+    .info-block__value {
+      font-size: 14px;
+      font-weight: 500;
+      color: #1c1c1e;
+      line-height: 1.3;
+      letter-spacing: -0.2px;
+    }
+
+    /* Ticker */
+    .ticker {
+      margin-top: 56px;
+      margin-left: -16px;
+      margin-right: -16px;
+      background: #6B4B1A;
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 4px 0;
+    }
+
+    .ticker__track {
+      display: inline-block;
+      padding-left: 100%;
+      animation: marquee 300s linear infinite;
+      font-size: 13px;
+      font-weight: 400;
+      color: #fff;
+      letter-spacing: 0.3px;
+      line-height: 1.4;
+    }
+
+    @keyframes marquee {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* Name block */
+    .name-block {
+      margin-top: 27px;
+      position: relative;
+    }
+
+    .name-block__caption {
+      font-size: 15px;
+      font-weight: 400;
+      color: #3c3a2a;
+      margin-bottom: 8px;
+      letter-spacing: 0.2px;
+    }
+
+    .name-block__name {
+      font-size: 17px;
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: 0px;
+    }
+
+    .name-block__name span {
+      display: block;
+      &#lastName {
+        margin-bottom: 2px;
+      }
+    }
+
+    .name-block__patronymic {
+      font-weight: 400;
+      font-size: 20px;
+      letter-spacing: -0.2px;
+      line-height: 1.1;
+    }
+
+    /* Floating add button */
+    .fab {
+      position: absolute;
+      right: 0px;
+      bottom: 0px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #FC890A;
+      border: none;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(240, 138, 28, 0.35);
+    }
+
+    .fab svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .fab:active {
+      transform: scale(0.95);
+    }
+
+    /* Spacer to push nav to bottom */
+    .spacer {
+      flex: 1;
+      min-height: 20px;
+    }
+
+    /* Bottom nav */
+    .bottom-nav {
+      display: flex;
+      background: #FFF;
+      padding: 8px 0 max(12px, env(safe-area-inset-bottom));
+      border-top: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .nav-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      background: none;
+      border: none;
+      padding: 8px 4px;
+      color: #000;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1.3;
+      letter-spacing: 0.1px;
+      position: relative;
+    }
+
+    .nav-item svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .nav-item.active {
+      font-weight: 500;
+    }
+
+    @media (min-width: 481px) {
+      body {
+        background: #000;
+      }
+      .app {
+        min-height: 100vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <button class="notifications-btn" type="button" aria-label="Сповіщення">
+        Сповіщення
+        <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+          <path d="M18 16v-5a6 6 0 1 0-12 0v5l-2 2h16z"/>
+          <path d="M10 20a2 2 0 0 0 4 0"/>
+        </svg>
+      </button>
+    </header>
+
+    <section class="id-card">
+      <div class="id-card__top">
+        <h1 class="id-card__title" id="cardTitle">Резерв ID</h1>
+        <!-- <svg class="id-card__logo" viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M32 6 L32 58 M22 14 L22 36 Q22 44 32 48 Q42 44 42 36 L42 14 M14 22 L14 30 Q14 40 32 52 Q50 40 50 30 L50 22" fill="none" stroke="#1c1c1e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg> -->
+        <img src="icons/herb.jpg" alt="herb" class="id-card__logo" />
+      </div>
+
+      <div class="id-card__body">
+        <img class="id-card__photo" id="userPhoto" alt="Фото" />
+        <div class="id-card__info">
+          <div class="info-block">
+            <div class="info-block__label">Дата народження:</div>
+            <div class="info-block__value" id="birthDate">30.06.1994</div>
+          </div>
+          <div class="info-block">
+            <div class="info-block__label">Відстрочка до:</div>
+            <div class="info-block__value" id="deferralDate">06.11.2026</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ticker">
+        <div class="ticker__track" id="tickerTrack"></div>
+      </div>
+
+      <div class="name-block">
+        <div class="name-block__caption">Військовозобов'язаний</div>
+        <div class="name-block__name">
+          <span id="lastName">РАЗУМНИЙ</span>
+          <span id="firstName">СЕРГІЙ</span>
+          <span class="name-block__patronymic" id="patronymic">Андрійович</span>
+        </div>
+        <button class="fab" type="button" aria-label="Додати">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round">
+            <path d="M12 5v14M5 12h14"/>
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <nav class="bottom-nav">
+      <button class="nav-item active" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 140" width="10" height="14">
+          <rect width="100" height="140" rx="12" fill="#000000" />
+          
+          <rect x="12" y="70" width="76" height="16" fill="#FFFFFF" />
+          
+          <rect x="12" y="102" width="76" height="16" fill="#FFFFFF" />
+        </svg>
+
+        Резерв ID
+      </button>
+      <button class="nav-item" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="4" y="4" width="6" height="6" rx="1"/>
+          <rect x="14" y="4" width="6" height="6" rx="1"/>
+          <rect x="4" y="14" width="6" height="6" rx="1"/>
+          <rect x="14" y="14" width="6" height="6" rx="1"/>
+        </svg>
+        Сервіси
+      </button>
+      <button class="nav-item" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 140" width="10" height="14">
+          <rect x="4" y="4" width="92" height="132" rx="12" fill="#FFFFFF" stroke="#000000" stroke-width="8" />
+          
+          <polygon points="50,40 80,70 50,100 20,70" fill="#000000" stroke="#000000" stroke-linejoin="round" stroke-width="4" />
+        </svg>
+
+        Вакансії
+      </button>
+      <button class="nav-item" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="4" y1="7" x2="20" y2="7"/>
+          <line x1="4" y1="12" x2="20" y2="12"/>
+          <line x1="4" y1="17" x2="20" y2="17"/>
+        </svg>
+        Меню
+      </button>
+    </nav>
+  </div>
+
+  <script>
+    const USER_DATA = {
+      photo: "photo.jpg",
+      lastName: "РАЗУМНИЙ",
+      firstName: "ДЕНИС",
+      patronymic: "Валерійович",
+      birthDate: "06.06.1988",
+      deferralDate: "06.11.2026",
+      tickerText: "Документ оновлено о 16:20 04.04.2026 •"
+    };
+
+    const PLACEHOLDER_PHOTO = "data:image/svg+xml;utf8," + encodeURIComponent(
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 165">' +
+      '<rect width="130" height="165" fill="#e9e6d0"/>' +
+      '<circle cx="65" cy="62" r="26" fill="#b5b197"/>' +
+      '<path d="M20 160 Q20 110 65 110 Q110 110 110 160 Z" fill="#b5b197"/>' +
+      '</svg>'
+    );
+
+    function setText(id, value) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = value;
+    }
+
+    function render() {
+      setText("lastName", USER_DATA.lastName);
+      setText("firstName", USER_DATA.firstName);
+      setText("patronymic", USER_DATA.patronymic);
+      setText("birthDate", USER_DATA.birthDate);
+      setText("deferralDate", USER_DATA.deferralDate);
+
+      const photo = document.getElementById("userPhoto");
+      const img = new Image();
+      img.onload = () => { photo.src = USER_DATA.photo; };
+      img.onerror = () => { photo.src = PLACEHOLDER_PHOTO; };
+      img.src = USER_DATA.photo;
+
+      const track = document.getElementById("tickerTrack");
+      const single = " " + USER_DATA.tickerText + " ";
+      track.textContent = single.repeat(40);
+    }
+
+    render();
+
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("sw.js").catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
