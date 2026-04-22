@@ -55,7 +55,7 @@
     .header {
       display: flex;
       justify-content: flex-end;
-      padding: 12px 20px 8px;
+      padding: 24px 20px 8px;
     }
 
     .notifications-btn {
@@ -165,10 +165,11 @@
     }
 
     .id-card__title {
-      font-size: 21px;
-      font-weight: 500;
-      letter-spacing: 0.3px;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
       line-height: 1.2;
+      color: #1c1c1e;
     }
 
     .id-card__logo {
@@ -199,20 +200,26 @@
       padding-top: 4px;
     }
 
+    .info-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
     .info-block__label {
       font-size: 14px;
       font-weight: 400;
       color: #3c3a2a;
-      line-height: 1.35;
-      letter-spacing: 0.2px;
+      line-height: 1.3;
+      letter-spacing: 0.1px;
     }
 
     .info-block__value {
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 500;
       color: #1c1c1e;
-      line-height: 1.3;
-      letter-spacing: -0.2px;
+      line-height: 1.25;
+      letter-spacing: 0px;
     }
 
     /* Ticker */
@@ -220,10 +227,10 @@
       margin-top: 56px;
       margin-left: -16px;
       margin-right: -16px;
-      background: #6B4B1A;
+      background: #5C4419;
       overflow: hidden;
       white-space: nowrap;
-      padding: 4px 0;
+      padding: 5px 0;
     }
 
     .ticker__track {
@@ -233,7 +240,7 @@
       font-size: 13px;
       font-weight: 400;
       color: #fff;
-      letter-spacing: 0.3px;
+      letter-spacing: 0.2px;
       line-height: 1.4;
     }
 
@@ -244,37 +251,41 @@
 
     /* Name block */
     .name-block {
-      margin-top: 27px;
+      margin-top: 20px;
       position: relative;
     }
 
     .name-block__caption {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 400;
       color: #3c3a2a;
       margin-bottom: 8px;
-      letter-spacing: 0.2px;
+      letter-spacing: 0.1px;
     }
 
     .name-block__name {
       font-size: 17px;
       font-weight: 500;
-      line-height: 1;
-      letter-spacing: 0px;
+      line-height: 1.15;
+      letter-spacing: 0.2px;
+      color: #1c1c1e;
     }
 
     .name-block__name span {
       display: block;
-      &#lastName {
-        margin-bottom: 2px;
-      }
+    }
+
+    .name-block__name span#lastName,
+    .name-block__name span#firstName {
+      margin-bottom: 2px;
     }
 
     .name-block__patronymic {
       font-weight: 400;
-      font-size: 20px;
-      letter-spacing: -0.2px;
-      line-height: 1.1;
+      font-size: 19px;
+      letter-spacing: -0.1px;
+      line-height: 1.2;
+      margin-top: 2px;
     }
 
     /* Floating add button */
@@ -344,6 +355,94 @@
 
     .nav-item.active {
       font-weight: 500;
+    }
+
+    /* Bottom sheet */
+    .sheet-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.35);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 40;
+    }
+
+    .sheet-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .sheet {
+      position: fixed;
+      left: 50%;
+      bottom: 0;
+      transform: translate(-50%, 100%);
+      width: calc(100% - 16px);
+      max-width: 480px;
+      background: #FFFFFF;
+      border-radius: 16px 16px 0 0;
+      box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.15);
+      z-index: 50;
+      padding: 8px 0 max(16px, env(safe-area-inset-bottom));
+      transition: transform 0.3s cubic-bezier(0.32, 0.72, 0.2, 1);
+      touch-action: none;
+    }
+
+    .sheet.open {
+      transform: translate(-50%, 0);
+    }
+
+    .sheet.dragging {
+      transition: none;
+    }
+
+    .sheet__handle {
+      display: flex;
+      justify-content: center;
+      padding: 8px 0 12px;
+      cursor: grab;
+    }
+
+    .sheet__handle::before {
+      content: "";
+      width: 36px;
+      height: 4px;
+      border-radius: 2px;
+      background: #000;
+    }
+
+    .sheet__list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sheet__item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 24px;
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 400;
+      color: #1c1c1e;
+      cursor: pointer;
+      letter-spacing: 0.1px;
+    }
+
+    .sheet__item:active {
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    .sheet__item svg {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      color: #1c1c1e;
     }
 
     @media (min-width: 481px) {
@@ -459,13 +558,42 @@
     </nav>
   </div>
 
+  <div class="sheet-backdrop" id="sheetBackdrop"></div>
+  <div class="sheet" id="docSheet" role="dialog" aria-modal="true" aria-label="Дії з документом">
+    <div class="sheet__handle" id="sheetHandle" aria-hidden="true"></div>
+    <div class="sheet__list">
+      <button class="sheet__item" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9"/>
+          <line x1="12" y1="10" x2="12" y2="17"/>
+          <circle cx="12" cy="7.2" r="0.9" fill="currentColor" stroke="none"/>
+        </svg>
+        Переглянути документ
+      </button>
+      <button class="sheet__item" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 3h7l5 5v13a0 0 0 0 1 0 0H7a0 0 0 0 1 0 0V3Z"/>
+          <path d="M14 3v5h5"/>
+        </svg>
+        Завантажити PDF
+      </button>
+      <button class="sheet__item" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 12a8 8 0 1 1-2.34-5.66"/>
+          <polyline points="20 4 20 9 15 9"/>
+        </svg>
+        Оновити документ
+      </button>
+    </div>
+  </div>
+
   <script>
     const USER_DATA = {
       photo: "photo.jpg",
       lastName: "РАЗУМНИЙ",
-      firstName: "ДЕНИС",
-      patronymic: "Валерійович",
-      birthDate: "06.06.1988",
+      firstName: "СЕРГІЙ",
+      patronymic: "Андрійович",
+      birthDate: "30.06.1994",
       deferralDate: "06.11.2026",
       tickerText: "Документ оновлено о 16:20 04.04.2026 •"
     };
@@ -502,6 +630,72 @@
     }
 
     render();
+
+    const sheet = document.getElementById("docSheet");
+    const sheetBackdrop = document.getElementById("sheetBackdrop");
+    const sheetHandle = document.getElementById("sheetHandle");
+    const fab = document.querySelector(".fab");
+
+    function openSheet() {
+      sheet.classList.add("open");
+      sheetBackdrop.classList.add("open");
+    }
+    function closeSheet() {
+      sheet.classList.remove("open");
+      sheetBackdrop.classList.remove("open");
+      sheet.style.transform = "";
+    }
+
+    if (fab) {
+      fab.addEventListener("click", (e) => {
+        e.stopPropagation();
+        openSheet();
+      });
+    }
+    sheetBackdrop.addEventListener("click", closeSheet);
+
+    let dragStartY = null;
+    let dragDelta = 0;
+    let sheetHeight = 0;
+
+    function onDragStart(e) {
+      if (e.target.closest(".sheet__item")) return;
+      dragStartY = (e.touches ? e.touches[0].clientY : e.clientY);
+      sheetHeight = sheet.offsetHeight;
+      sheet.classList.add("dragging");
+    }
+    function onDragMove(e) {
+      if (dragStartY === null) return;
+      const y = (e.touches ? e.touches[0].clientY : e.clientY);
+      dragDelta = Math.max(0, y - dragStartY);
+      sheet.style.transform = `translate(-50%, ${dragDelta}px)`;
+    }
+    function onDragEnd() {
+      if (dragStartY === null) return;
+      sheet.classList.remove("dragging");
+      if (dragDelta > sheetHeight * 0.28) {
+        closeSheet();
+      } else {
+        sheet.style.transform = "";
+      }
+      dragStartY = null;
+      dragDelta = 0;
+    }
+
+    sheet.addEventListener("touchstart", onDragStart, { passive: true });
+    sheet.addEventListener("touchmove", onDragMove, { passive: true });
+    sheet.addEventListener("touchend", onDragEnd);
+    sheet.addEventListener("mousedown", (e) => {
+      onDragStart(e);
+      const move = (ev) => onDragMove(ev);
+      const up = () => {
+        onDragEnd();
+        document.removeEventListener("mousemove", move);
+        document.removeEventListener("mouseup", up);
+      };
+      document.addEventListener("mousemove", move);
+      document.addEventListener("mouseup", up);
+    });
 
     const flip = document.getElementById("idCardFlip");
     if (flip) {
