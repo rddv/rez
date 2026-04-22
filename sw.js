@@ -1,4 +1,4 @@
-const CACHE_NAME = "rezerv-id-v4";
+const CACHE_NAME = "v4";
 const ASSETS = [
   "./",
   "./index.html",
