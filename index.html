@@ -97,15 +97,64 @@
       flex-shrink: 0;
     }
 
-    /* ID Card */
+    /* ID Card (flip container) */
+    .id-card-flip {
+      margin: 8px 16px 0;
+      perspective: 1600px;
+    }
+
+    .id-card-flip__inner {
+      position: relative;
+      width: 100%;
+      transition: transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
+      transform-style: preserve-3d;
+      cursor: pointer;
+    }
+
+    .id-card-flip.flipped .id-card-flip__inner {
+      transform: rotateY(180deg);
+    }
+
     .id-card {
       background: #D6D2B5;
       border-radius: 6px;
       border: 1px solid #979483;
-      margin: 8px 16px 0;
       padding: 24px 16px 16px;
       position: relative;
       box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    .id-card--back {
+      position: absolute;
+      inset: 0;
+      transform: rotateY(180deg);
+      background: #FFFFFF;
+      border-color: #e5e3d6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 28px 20px;
+      gap: 18px;
+    }
+
+    .id-card--back__caption {
+      font-size: 16px;
+      font-weight: 500;
+      color: #1c1c1e;
+      text-align: center;
+      line-height: 1.35;
+      letter-spacing: 0.2px;
+    }
+
+    .id-card--back__qr {
+      width: 82%;
+      max-width: 320px;
+      aspect-ratio: 1 / 1;
+      object-fit: contain;
+      image-rendering: pixelated;
     }
 
     .id-card__top {
@@ -154,7 +203,6 @@
       font-size: 14px;
       font-weight: 400;
       color: #3c3a2a;
-      margin-bottom: 4px;
       line-height: 1.35;
       letter-spacing: 0.2px;
     }
@@ -320,6 +368,8 @@
       </button>
     </header>
 
+    <div class="id-card-flip" id="idCardFlip">
+      <div class="id-card-flip__inner">
     <section class="id-card">
       <div class="id-card__top">
         <h1 class="id-card__title" id="cardTitle">Резерв ID</h1>
@@ -361,6 +411,12 @@
         </button>
       </div>
     </section>
+    <section class="id-card id-card--back" aria-hidden="true">
+      <div class="id-card--back__caption">QR-код дійсний до<br>6 листопада 2026</div>
+      <img class="id-card--back__qr" src="icons/qr-ser.jpg" alt="QR" />
+    </section>
+      </div>
+    </div>
 
     <nav class="bottom-nav">
       <button class="nav-item active" type="button">
@@ -446,6 +502,14 @@
     }
 
     render();
+
+    const flip = document.getElementById("idCardFlip");
+    if (flip) {
+      flip.addEventListener("click", (e) => {
+        if (e.target.closest(".fab")) return;
+        flip.classList.toggle("flipped");
+      });
+    }
 
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
