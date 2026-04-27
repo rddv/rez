@@ -9,11 +9,43 @@
   <meta name="mobile-web-app-capable" content="yes" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
   <title>Резерв+</title>
   <style>
+    @font-face {
+      font-family: 'e-Ukraine';
+      src: url('fonts/e_ukraine_regular.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'e-Ukraine';
+      src: url('fonts/e_ukraine_medium.otf') format('opentype');
+      font-weight: 500 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'e-Ukraine Head';
+      src: url('fonts/e_ukraine_head_regular.otf') format('opentype');
+      font-weight: 400 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Roboto Numbers';
+      src: url('fonts/roboto_medium_numbers.ttf') format('truetype');
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+      unicode-range: U+0030-0039, U+002E, U+002C, U+003A;
+    }
+
     :root {
       --color-text: #1c1c1e;
+      --font-body: 'e-Ukraine', sans-serif;
+      --font-head: 'e-Ukraine Head', 'e-Ukraine', sans-serif;
+      --font-numbers: 'Roboto Numbers', 'e-Ukraine', sans-serif;
     }
 
     * {
@@ -25,7 +57,7 @@
 
     html, body {
       height: 100%;
-      font-family: 'Roboto', sans-serif;
+      font-family: var(--font-body);
       background: #C9C5A6;
       color: #000;
       overscroll-behavior: none;
@@ -115,8 +147,7 @@
       border: none;
       width: 100%;
       font-family: inherit;
-      font-size: 16px;
-      font-weight: 400;
+      font-size: 14px;
       color: var(--color-text);
       text-align: left;
       cursor: pointer;
@@ -167,8 +198,8 @@
     }
 
     .back-btn svg {
-      width: 20px;
-      height: 20px;
+      width: 24px;
+      height: 24px;
     }
 
     .notifications-title {
@@ -188,13 +219,12 @@
       padding: 14px 16px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
     }
 
     .notification-card__title {
       font-size: 14px;
-      font-weight: 500;
       color: var(--color-text);
       line-height: 1.3;
     }
@@ -207,6 +237,7 @@
     }
 
     .notification-card__date {
+      font-family: var(--font-numbers);
       font-size: 13px;
       font-weight: 400;
       color: #8a8778;
@@ -226,7 +257,7 @@
 
     .jobs-header__title {
       font-size: 22px;
-      font-weight: 700;
+      font-weight: 400;
       color: var(--color-text);
       line-height: 1.2;
       letter-spacing: 0.2px;
@@ -309,7 +340,7 @@
 
     .jobs-card__heading {
       font-size: 18px;
-      font-weight: 600;
+      font-weight: 400;
       color: var(--color-text);
       letter-spacing: 0.2px;
     }
@@ -325,10 +356,11 @@
     }
 
     .menu-version {
+      font-family: var(--font-numbers);
       font-size: 13px;
       font-weight: 400;
       color: #8a8778;
-      margin-top: 4px;
+      margin-top: 8px;
       letter-spacing: 0.1px;
     }
 
@@ -355,8 +387,7 @@
       border: none;
       width: 100%;
       font-family: inherit;
-      font-size: 16px;
-      font-weight: 400;
+      font-size: 14px;
       color: var(--color-text);
       text-align: left;
       cursor: pointer;
@@ -390,8 +421,8 @@
     }
 
     .menu-row__chevron {
-      width: 24px;
-      height: 24px;
+      width: 28px;
+      height: 28px;
       color: var(--color-text);
       flex-shrink: 0;
     }
@@ -564,6 +595,7 @@
     }
 
     .page-title {
+      font-family: var(--font-head);
       font-size: 22px;
       font-weight: 600;
       letter-spacing: 0.2px;
@@ -614,6 +646,7 @@
     }
 
     .info-block__value {
+      font-family: var(--font-numbers);
       font-size: 15px;
       font-weight: 500;
       color: var(--color-text);
@@ -629,14 +662,15 @@
       background: #5C4419;
       overflow: hidden;
       white-space: nowrap;
-      padding: 5px 0;
+      padding: 2px 0 6px;
     }
 
     .ticker__track {
       display: inline-block;
       padding-left: 100%;
       animation: marquee 300s linear infinite;
-      font-size: 13px;
+      font-family: var(--font-numbers);
+      font-size: 12px;
       font-weight: 400;
       color: #fff;
       letter-spacing: 0.2px;
@@ -650,13 +684,12 @@
 
     /* Name block */
     .name-block {
-      margin-top: 20px;
+      margin-top: 26px;
       position: relative;
     }
 
     .name-block__caption {
-      font-size: 14px;
-      font-weight: 400;
+      font-size: 13px;
       color: #3c3a2a;
       margin-bottom: 8px;
       letter-spacing: 0.1px;
@@ -664,7 +697,6 @@
 
     .name-block__name {
       font-size: 17px;
-      font-weight: 500;
       line-height: 1.15;
       letter-spacing: 0.2px;
       color: var(--color-text);
@@ -680,9 +712,7 @@
     }
 
     .name-block__patronymic {
-      font-weight: 400;
-      font-size: 19px;
-      letter-spacing: -0.1px;
+      font-size: 17px;
       line-height: 1.2;
       margin-top: 2px;
     }

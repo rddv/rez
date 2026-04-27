@@ -1,10 +1,14 @@
-const CACHE_NAME = "v25";
+const CACHE_NAME = "v26";
 const ASSETS = [
   "./",
   "./index.html",
   "./manifest.json",
   "./icon-192.png",
-  "./icon-512.png"
+  "./icon-512.png",
+  "./fonts/e_ukraine_regular.otf",
+  "./fonts/e_ukraine_medium.otf",
+  "./fonts/e_ukraine_head_regular.otf",
+  "./fonts/roboto_medium_numbers.ttf"
 ];
 
 self.addEventListener("install", (event) => {
