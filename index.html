@@ -929,6 +929,246 @@
       margin: 0 2px;
     }
 
+    /* Document viewer */
+    .doc-view {
+      position: fixed;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      transform: translate(-50%, 100%);
+      width: 100%;
+      max-width: 480px;
+      background: #C9C5A6;
+      z-index: 60;
+      transition: transform 0.35s cubic-bezier(0.32, 0.72, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      padding-top: env(safe-area-inset-top);
+      border-radius: 36px 36px 0 0;
+    }
+
+    .doc-view.open {
+      transform: translate(-50%, 0);
+    }
+
+    .doc-view.dragging {
+      transition: none;
+    }
+
+    .doc-view__handle {
+      display: flex;
+      justify-content: center;
+      padding: 10px 0 14px;
+      flex-shrink: 0;
+      cursor: grab;
+      touch-action: none;
+    }
+
+    .doc-view__handle::before {
+      content: "";
+      width: 38px;
+      height: 4px;
+      border-radius: 2px;
+      background: #000;
+    }
+
+    .doc-view__title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 20px 16px;
+      flex-shrink: 0;
+    }
+
+    .doc-view__title {
+      font-family: var(--font-head);
+      font-size: 26px;
+      font-weight: 400;
+      letter-spacing: 0.2px;
+      color: var(--color-text);
+    }
+
+    .doc-view__herb {
+      width: 30px;
+      height: 36px;
+      object-fit: contain;
+    }
+
+    .doc-view__scroll {
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: max(24px, env(safe-area-inset-bottom));
+    }
+
+    .doc-view__ticker {
+      background: #5C4419;
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 3px 0 7px;
+      margin-bottom: 12px;
+    }
+
+    .doc-view__ticker-track {
+      display: inline-block;
+      padding-left: 100%;
+      animation: marquee 300s linear infinite;
+      font-family: var(--font-numbers);
+      font-size: 12px;
+      font-weight: 400;
+      color: #fff;
+      letter-spacing: 0.2px;
+      line-height: 1.4;
+    }
+
+    .doc-card {
+      background: #FBFDFC;
+      border-radius: 16px;
+      margin: 8px 24px;
+      padding: 6px 18px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    }
+
+    .doc-card--name {
+      margin-top: 24px;
+      padding: 20px 18px 18px;
+    }
+
+    .doc-row {
+      padding: 14px 0;
+      border-bottom: 1px dashed rgba(0, 0, 0, 0.18);
+    }
+
+    .doc-row:last-child {
+      border-bottom: none;
+    }
+
+    .doc-row--inline {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .doc-row__label {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--color-text);
+      line-height: 1.3;
+    }
+
+    .doc-row__value {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--color-text);
+      line-height: 1.35;
+      margin-top: 6px;
+    }
+
+    .doc-row--inline .doc-row__value {
+      margin-top: 0;
+      font-family: var(--font-numbers);
+      font-size: 15px;
+      font-weight: 500;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .doc-row__value--num {
+      font-family: var(--font-numbers);
+      font-weight: 500;
+    }
+
+    .doc-name {
+      font-size: 22px;
+      font-weight: 400;
+      letter-spacing: 0.3px;
+      line-height: 1.2;
+      color: var(--color-text);
+    }
+
+    .doc-name span {
+      display: block;
+    }
+
+    .doc-name__patronymic {
+      font-weight: 400;
+    }
+
+    .doc-name-caption {
+      font-size: 14px;
+      font-weight: 400;
+      color: #3c3a2a;
+      margin: 10px 0 14px;
+    }
+
+    .doc-identity {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+    }
+
+    .doc-identity__photo {
+      width: 112px;
+      height: 140px;
+      border-radius: 4px;
+      object-fit: cover;
+      background: #e9e6d0;
+      flex-shrink: 0;
+    }
+
+    .doc-identity__fields {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding-top: 4px;
+    }
+
+    .doc-identity__label {
+      font-size: 14px;
+      color: #3c3a2a;
+      margin-bottom: 2px;
+    }
+
+    .doc-identity__value {
+      font-family: var(--font-numbers);
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--color-text);
+    }
+
+    .doc-card--status {
+      padding: 14px 18px;
+    }
+
+    .doc-status {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 4px 0 14px;
+      border-bottom: 1px dashed rgba(0, 0, 0, 0.18);
+      font-size: 14px;
+      color: var(--color-text);
+    }
+
+    .doc-status__check {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #2E9E3A;
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .doc-status__check svg {
+      width: 12px;
+      height: 12px;
+    }
+
     @media (min-width: 481px) {
       body {
         background: #000;
@@ -958,10 +1198,7 @@
     <section class="id-card">
       <div class="id-card__top">
         <h1 class="page-title" id="cardTitle">Резерв ID</h1>
-        <!-- <svg class="id-card__logo" viewBox="0 0 64 64" aria-hidden="true">
-          <path d="M32 6 L32 58 M22 14 L22 36 Q22 44 32 48 Q42 44 42 36 L42 14 M14 22 L14 30 Q14 40 32 52 Q50 40 50 30 L50 22" fill="none" stroke="#1c1c1e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg> -->
-        <img src="icons/herb.jpg" alt="herb" class="id-card__logo" />
+        <img src="icons/herb.png" alt="herb" class="id-card__logo" />
       </div>
 
       <div class="id-card__body">
@@ -1183,6 +1420,117 @@
     </nav>
   </div>
 
+  <div class="doc-view" id="docView" role="dialog" aria-modal="true" aria-label="Документ">
+    <div class="doc-view__handle" id="docViewHandle" aria-hidden="true"></div>
+    <div class="doc-view__title-row">
+      <h1 class="doc-view__title">Резерв ID</h1>
+      <img class="doc-view__herb" src="icons/herb.png" alt="" />
+    </div>
+    <div class="doc-view__scroll" id="docViewScroll">
+      <div class="doc-view__ticker">
+        <div class="doc-view__ticker-track" id="docTickerTrack"></div>
+      </div>
+
+      <div class="doc-card doc-card--name">
+        <div class="doc-name">
+          <span id="docLastName">РАЗУМНИЙ</span>
+          <span id="docFirstName">СЕРГІЙ</span>
+          <span class="doc-name__patronymic" id="docPatronymic">Андрійович</span>
+        </div>
+        <div class="doc-name-caption">Військовозобов'язаний</div>
+        <div class="doc-identity">
+          <img class="doc-identity__photo" id="docPhoto" alt="" />
+          <div class="doc-identity__fields">
+            <div>
+              <div class="doc-identity__label">Дата народження:</div>
+              <div class="doc-identity__value" id="docBirthDate">30.06.1994</div>
+            </div>
+            <div>
+              <div class="doc-identity__label">РНОКПП:</div>
+              <div class="doc-identity__value" id="docRnokpp">3451406853</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-row doc-row--inline">
+          <div class="doc-row__label">Відстрочка до:</div>
+          <div class="doc-row__value" id="docDeferralDate">06.11.2026</div>
+        </div>
+        <div class="doc-row doc-row--inline">
+          <div class="doc-row__label">Тип відстрочки:</div>
+          <div class="doc-row__value" id="docDeferralType" style="font-family: var(--font-body); font-weight: 400;">бронювання</div>
+        </div>
+        <div class="doc-row" id="docVlkRulingRow">
+          <div class="doc-row--inline" style="display: flex; justify-content: space-between;">
+            <div class="doc-row__label">Постанова ВЛК:</div>
+            <div class="doc-row__value" id="docVlkRuling" style="font-family: var(--font-body); font-weight: 400;">Придатний</div>
+          </div>
+        </div>
+        <div class="doc-row doc-row--inline" id="docVlkDateRow">
+          <div class="doc-row__label">Дата ВЛК:</div>
+          <div class="doc-row__value" id="docVlkDate">06.03.2025</div>
+        </div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-row">
+          <div class="doc-row__label">ТЦК та СП:</div>
+          <div class="doc-row__value" id="docTcksp">Чернігівський міський територіальний центр комплектування та соціальної підтримки</div>
+        </div>
+        <div class="doc-row doc-row--inline">
+          <div class="doc-row__label">Звання:</div>
+          <div class="doc-row__value" id="docRank" style="font-family: var(--font-body); font-weight: 400;">Солдат</div>
+        </div>
+        <div class="doc-row doc-row--inline">
+          <div class="doc-row__label">ВОС:</div>
+          <div class="doc-row__value" id="docVos">999097</div>
+        </div>
+        <div class="doc-row" id="docCategoryRow">
+          <div class="doc-row__label">Категорія обліку:</div>
+          <div class="doc-row__value" id="docCategory">Військовозобов'язаний</div>
+        </div>
+        <div class="doc-row">
+          <div class="doc-row__label" id="docExtraLabel">Потребує проходження базової загальновійськової підготовки</div>
+          <div class="doc-row__value" id="docExtra" style="font-family: var(--font-body); font-weight: 400;">Солдат резерву</div>
+        </div>
+        <div class="doc-row">
+          <div class="doc-row__label">Номер в реєстрі Оберіг:</div>
+          <div class="doc-row__value doc-row__value--num" id="docOberig">210720231358641100018</div>
+        </div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-row">
+          <div class="doc-row__label">Телефон:</div>
+          <div class="doc-row__value doc-row__value--num" id="docPhone">+380 50 313 1177</div>
+        </div>
+        <div class="doc-row" id="docEmailRow">
+          <div class="doc-row__label">Email:</div>
+          <div class="doc-row__value doc-row__value--num" id="docEmail">S13TUY@YAHOO.COM</div>
+        </div>
+        <div class="doc-row">
+          <div class="doc-row__label">Адреса проживання:</div>
+          <div class="doc-row__value" id="docAddress">Україна, м.Київ, м.Київ, вул.Новаторів, б. 2а, кв. 67</div>
+        </div>
+      </div>
+
+      <div class="doc-card doc-card--status">
+        <div class="doc-status">
+          <span class="doc-status__check">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg>
+          </span>
+          <span id="docStatusText">Дані уточнено вчасно</span>
+        </div>
+        <div class="doc-row doc-row--inline" style="border-bottom: none; padding-bottom: 4px;">
+          <div class="doc-row__label">Дата останнього<br>уточнення даних:</div>
+          <div class="doc-row__value" id="docLastUpdate">18.06.2024</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="sheet-backdrop" id="sheetBackdrop"></div>
   <div class="sheet" id="docSheet" role="dialog" aria-modal="true" aria-label="Дії з документом">
     <div class="sheet__handle" id="sheetHandle" aria-hidden="true"></div>
@@ -1213,7 +1561,25 @@
             deferralDate: "06.11.2026",
             tickerText: "Документ оновлено о 16:20 04.04.2026 •",
             qrName: "qr-ser.jpg",
-            qrDate: "6 листопада 2026"
+            qrDate: "6 листопада 2026",
+            doc: {
+                rnokpp: "3451406853",
+                deferralType: "бронювання",
+                vlkRuling: "Придатний",
+                vlkDate: "06.03.2025",
+                tcksp: "Чернігівський міський територіальний центр комплектування та соціальної підтримки",
+                rank: "Солдат",
+                vos: "999097",
+                category: "Військовозобов'язаний",
+                extraLabel: "Потребує проходження базової загальновійськової підготовки",
+                extra: "Солдат резерву",
+                oberig: "200620231358641100065",
+                phone: "+380 93 832 6906",
+                email: null,
+                address: "Україна, ЧЕРНІГІВСЬКА, ЧЕРНІГІВ, ВУЛ.ПУХОВА, б. 105, кв. 61",
+                statusText: "Дані уточнено вчасно",
+                lastUpdate: "07.03.2025"
+            }
         },
         {
             photo: "photo.jpg",
@@ -1224,7 +1590,25 @@
             deferralDate: "05.01.2027",
             tickerText: "Документ оновлено о 12:32 | 06.03.2026 •",
             qrName: "qr-2.jpg",
-            qrDate: "5 січня 2027"
+            qrDate: "5 січня 2027",
+            doc: {
+                rnokpp: "3246207358",
+                deferralType: "бронювання",
+                vlkRuling: null,
+                vlkDate: null,
+                tcksp: "Деснянський районний у м.Києві територіальний центр комплектування та соціальної підтримки",
+                rank: "Солдат",
+                vos: "999097",
+                category: "Військовозобов'язаний",
+                extraLabel: "Потребує проходження базової загальновійськової підготовки",
+                extra: "Солдат резерву",
+                oberig: "210720231358641100018",
+                phone: "+380 50 313 1177",
+                email: null,
+                address: "Україна, м.Київ, м.Київ, вул.Новаторів, б. 2а, кв. 67",
+                statusText: "Дані оновлено вчасно",
+                lastUpdate: "18.06.2024"
+            }
         }
     ];
 
@@ -1252,9 +1636,16 @@
       setText("deferralDate", user.deferralDate);
 
       const photo = document.getElementById("userPhoto");
+      const docPhoto = document.getElementById("docPhoto");
       const img = new Image();
-      img.onload = () => { photo.src = user.photo; };
-      img.onerror = () => { photo.src = PLACEHOLDER_PHOTO; };
+      img.onload = () => {
+        photo.src = user.photo;
+        if (docPhoto) docPhoto.src = user.photo;
+      };
+      img.onerror = () => {
+        photo.src = PLACEHOLDER_PHOTO;
+        if (docPhoto) docPhoto.src = PLACEHOLDER_PHOTO;
+      };
       img.src = user.photo;
 
       const qrImage = document.getElementById("qrImage");
@@ -1264,6 +1655,52 @@
       const track = document.getElementById("tickerTrack");
       const single = " " + user.tickerText + " ";
       track.textContent = single.repeat(40);
+
+      const d = user.doc;
+      setText("docLastName", user.lastName);
+      setText("docFirstName", user.firstName);
+      setText("docPatronymic", user.patronymic);
+      setText("docBirthDate", user.birthDate);
+      setText("docDeferralDate", user.deferralDate);
+      setText("docRnokpp", d.rnokpp);
+      setText("docDeferralType", d.deferralType);
+      setText("docTcksp", d.tcksp);
+      setText("docRank", d.rank);
+      setText("docVos", d.vos);
+      setText("docCategory", d.category);
+      setText("docExtraLabel", d.extraLabel);
+      setText("docExtra", d.extra);
+      setText("docOberig", d.oberig);
+      setText("docPhone", d.phone);
+      setText("docAddress", d.address);
+      setText("docStatusText", d.statusText);
+      setText("docLastUpdate", d.lastUpdate);
+
+      const vlkRulingRow = document.getElementById("docVlkRulingRow");
+      const vlkDateRow = document.getElementById("docVlkDateRow");
+      if (d.vlkRuling) {
+        vlkRulingRow.style.display = "";
+        vlkDateRow.style.display = "";
+        setText("docVlkRuling", d.vlkRuling);
+        setText("docVlkDate", d.vlkDate);
+      } else {
+        vlkRulingRow.style.display = "none";
+        vlkDateRow.style.display = "none";
+      }
+
+      const emailRow = document.getElementById("docEmailRow");
+      if (d.email) {
+        emailRow.style.display = "";
+        setText("docEmail", d.email);
+      } else {
+        emailRow.style.display = "none";
+      }
+
+      const docTicker = document.getElementById("docTickerTrack");
+      if (docTicker) docTicker.textContent = single.repeat(40);
+
+      const catRow = document.getElementById("docCategoryRow");
+      if (catRow) catRow.style.display = d.category ? "" : "none";
     }
 
     render();
@@ -1398,6 +1835,70 @@
       flip.addEventListener("click", (e) => {
         if (e.target.closest(".fab")) return;
         flip.classList.toggle("flipped");
+      });
+    }
+
+    const docView = document.getElementById("docView");
+    const docViewHandle = document.getElementById("docViewHandle");
+    const docViewScroll = document.getElementById("docViewScroll");
+
+    function openDocView() {
+      closeSheet();
+      docView.classList.add("open");
+      if (docViewScroll) docViewScroll.scrollTop = 0;
+    }
+    function closeDocView() {
+      docView.classList.remove("open");
+      docView.style.transform = "";
+    }
+
+    const viewDocBtn = document.querySelector('#docSheet .sheet__item');
+    if (viewDocBtn) {
+      viewDocBtn.addEventListener("click", openDocView);
+    }
+
+    let docDragStartY = null;
+    let docDragDelta = 0;
+    let docHeight = 0;
+
+    function onDocDragStart(e) {
+      if (docViewScroll && docViewScroll.scrollTop > 0) return;
+      docDragStartY = (e.touches ? e.touches[0].clientY : e.clientY);
+      docHeight = docView.offsetHeight;
+      docView.classList.add("dragging");
+    }
+    function onDocDragMove(e) {
+      if (docDragStartY === null) return;
+      const y = (e.touches ? e.touches[0].clientY : e.clientY);
+      docDragDelta = Math.max(0, y - docDragStartY);
+      docView.style.transform = `translate(-50%, ${docDragDelta}px)`;
+    }
+    function onDocDragEnd() {
+      if (docDragStartY === null) return;
+      docView.classList.remove("dragging");
+      if (docDragDelta > docHeight * 0.25) {
+        closeDocView();
+      } else {
+        docView.style.transform = "";
+      }
+      docDragStartY = null;
+      docDragDelta = 0;
+    }
+
+    if (docViewHandle) {
+      docViewHandle.addEventListener("touchstart", onDocDragStart, { passive: true });
+      docViewHandle.addEventListener("touchmove", onDocDragMove, { passive: true });
+      docViewHandle.addEventListener("touchend", onDocDragEnd);
+      docViewHandle.addEventListener("mousedown", (e) => {
+        onDocDragStart(e);
+        const move = (ev) => onDocDragMove(ev);
+        const up = () => {
+          onDocDragEnd();
+          document.removeEventListener("mousemove", move);
+          document.removeEventListener("mouseup", up);
+        };
+        document.addEventListener("mousemove", move);
+        document.addEventListener("mouseup", up);
       });
     }
 
